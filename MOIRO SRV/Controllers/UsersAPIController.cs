@@ -22,8 +22,7 @@ namespace MOIRO_SRV.Controllers
         {
             return db.Users;
         }
-
-        // GET: api/Users1/5
+        //GET: api/Users1/5
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> GetUser(int id)
         {
