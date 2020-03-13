@@ -78,7 +78,7 @@ namespace MOIRO_SRV.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
+        } 
 
         // POST: api/Events
         [ResponseType(typeof(Event))]
