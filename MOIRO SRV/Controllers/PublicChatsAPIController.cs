@@ -36,6 +36,15 @@ namespace MOIRO_SRV.Controllers
             return Ok(publicChat);
         }
 
+        // GET orders by idUser (Personal user orders) and request for a specific user by Admin
+        public IQueryable<PublicChat> GetPublicChats(int userId, int count)
+        {
+            IQueryable<PublicChat> publicChats = db.PublicChats;
+
+            publicChats = publicChats.Where(user => user.UserId == userId).OrderByDescending(user => user.Date).Take(count);
+            return publicChats;
+        }
+
         // PUT: api/PublicChats/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPublicChat(int id, PublicChat publicChat)
