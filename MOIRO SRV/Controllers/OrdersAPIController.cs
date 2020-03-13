@@ -36,7 +36,7 @@ namespace MOIRO_SRV.Controllers
             return Ok(order);
         }
 
-        // GET orders by idUser (Personal user orders)
+        // GET orders by idUser (Personal user orders) and request for a specific user by Admin
         public IQueryable<Order> GetOrders(int userId, int count)
         {
             IQueryable<Order> orders = db.Orders;

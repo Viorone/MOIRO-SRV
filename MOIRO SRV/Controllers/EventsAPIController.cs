@@ -23,7 +23,7 @@ namespace MOIRO_SRV.Controllers
             return db.Events;
         }
 
-        // GET events by idUser (Personal user evens)
+        // GET events by idUser (Personal user evens) and request for a specific user by Admin
         public IQueryable<Event> GetEvents(int userId, int count)
         {
             IQueryable<Event> events = db.Events;
