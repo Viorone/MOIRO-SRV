@@ -13,53 +13,53 @@ using MOIRO_SRV.Models;
 
 namespace MOIRO_SRV.Controllers
 {
-    public class OrdersAPIController : ApiController
+    public class PublicChatsAPIController : ApiController
     {
         private ServerContext db = new ServerContext();
 
-        // GET: api/Orders
-        public IQueryable<Order> GetOrders()
+        // GET: api/PublicChats
+        public IQueryable<PublicChat> GetPublicChats()
         {
-            return db.Orders;
+            return db.PublicChats;
         }
 
-        // GET: api/Orders/5
-        [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> GetOrder(int id)
+        // GET: api/PublicChats/5
+        [ResponseType(typeof(PublicChat))]
+        public async Task<IHttpActionResult> GetPublicChat(int id)
         {
-            Order order = await db.Orders.FindAsync(id);
-            if (order == null)
+            PublicChat publicChat = await db.PublicChats.FindAsync(id);
+            if (publicChat == null)
             {
                 return NotFound();
             }
 
-            return Ok(order);
+            return Ok(publicChat);
         }
 
         // GET orders by idUser (Personal user orders) and request for a specific user by Admin
-        public IQueryable<Order> GetOrders(int userId, int count)
+        public IQueryable<PublicChat> GetPublicChats(int userId, int count)
         {
-            IQueryable<Order> orders = db.Orders;
+            IQueryable<PublicChat> publicChats = db.PublicChats;
 
-            orders = orders.Where(user => user.UserId == userId).OrderByDescending(user => user.Date).Take(count);
-            return orders;
+            publicChats = publicChats.Where(user => user.UserId == userId).OrderByDescending(user => user.Date).Take(count);
+            return publicChats;
         }
 
-        // PUT: api/Orders/5 
+        // PUT: api/PublicChats/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutOrder(int id, Order order)
+        public async Task<IHttpActionResult> PutPublicChat(int id, PublicChat publicChat)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != order.Id)
+            if (id != publicChat.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(order).State = EntityState.Modified;
+            db.Entry(publicChat).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace MOIRO_SRV.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(id))
+                if (!PublicChatExists(id))
                 {
                     return NotFound();
                 }
@@ -80,35 +80,35 @@ namespace MOIRO_SRV.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Orders
-        [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> PostOrder(Order order)
+        // POST: api/PublicChats
+        [ResponseType(typeof(PublicChat))]
+        public async Task<IHttpActionResult> PostPublicChat(PublicChat publicChat)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Orders.Add(order);
+            db.PublicChats.Add(publicChat);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
+            return CreatedAtRoute("DefaultApi", new { id = publicChat.Id }, publicChat);
         }
 
-        // DELETE: api/Orders/5
-        [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> DeleteOrder(int id)
+        // DELETE: api/PublicChats/5
+        [ResponseType(typeof(PublicChat))]
+        public async Task<IHttpActionResult> DeletePublicChat(int id)
         {
-            Order order = await db.Orders.FindAsync(id);
-            if (order == null)
+            PublicChat publicChat = await db.PublicChats.FindAsync(id);
+            if (publicChat == null)
             {
                 return NotFound();
             }
 
-            db.Orders.Remove(order);
+            db.PublicChats.Remove(publicChat);
             await db.SaveChangesAsync();
 
-            return Ok(order);
+            return Ok(publicChat);
         }
 
         protected override void Dispose(bool disposing)
@@ -120,9 +120,9 @@ namespace MOIRO_SRV.Controllers
             base.Dispose(disposing);
         }
 
-        private bool OrderExists(int id)
+        private bool PublicChatExists(int id)
         {
-            return db.Orders.Count(e => e.Id == id) > 0;
+            return db.PublicChats.Count(e => e.Id == id) > 0;
         }
     }
 }
