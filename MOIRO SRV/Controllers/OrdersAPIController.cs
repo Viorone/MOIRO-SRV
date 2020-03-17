@@ -49,7 +49,7 @@ namespace MOIRO_SRV.Controllers
         {
             IQueryable<Order> orders = db.Orders;
 
-            orders = orders.Where(user => user.UserId == id && user.Date.Date == date);
+            orders = orders.Where(user => user.UserId == id && user.Date.Date == date.Date);
             return orders;
         }
 
