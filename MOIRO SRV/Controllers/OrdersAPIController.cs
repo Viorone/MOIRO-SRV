@@ -45,6 +45,14 @@ namespace MOIRO_SRV.Controllers
             return orders;
         }
 
+        public IQueryable<Order> GetOrders(int id, DateTime date)
+        {
+            IQueryable<Order> orders = db.Orders;
+
+            orders = orders.Where(user => user.UserId == id && user.Date == date);
+            return orders;
+        }
+
         // PUT: api/Orders/5 
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutOrder(int id, Order order)
