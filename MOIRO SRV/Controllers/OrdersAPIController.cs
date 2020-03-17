@@ -45,11 +45,11 @@ namespace MOIRO_SRV.Controllers
             return orders;
         }
 
-        public IQueryable<Order> GetOrdersOfDate(int id, DateTime date)
+        public IQueryable<Order> GetOrdersOfDate(int Userid, DateTime date)
         {
             IQueryable<Order> orders = db.Orders;
 
-            orders = orders.Where(user => user.UserId == id && user.Date.Date == date.Date);
+            orders = orders.Where(user => user.UserId == Userid && user.Date.Date == date.Date);
             return orders;
         }
 
