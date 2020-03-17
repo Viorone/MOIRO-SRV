@@ -45,7 +45,7 @@ namespace MOIRO_SRV.Controllers
             return orders;
         }
 
-        public IQueryable<Order> GetOrders(int id, DateTime date)
+        public IQueryable<Order> GetOrdersOfDate(int id, DateTime date)
         {
             IQueryable<Order> orders = db.Orders;
 
