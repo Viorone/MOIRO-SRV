@@ -54,6 +54,15 @@ namespace MOIRO_SRV.Controllers
             return orders;
         }
 
+        public IEnumerable<Order> GetOrders(string date)
+        {
+            DateTime date1 = Convert.ToDateTime(date);
+            IEnumerable<Order> orders = db.Orders;
+
+            orders = orders.Where(user => user.Date.Date == date1.Date);
+            return orders;
+        }
+
         // PUT: api/Orders/5 
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutOrder(int id, Order order)
