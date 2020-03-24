@@ -45,6 +45,24 @@ namespace MOIRO_SRV.Controllers
             return Ok(@event);
         }
 
+        public IEnumerable<Event> GetEvents(int userId, string date)
+        {
+            DateTime date1 = Convert.ToDateTime(date);
+            IEnumerable<Event> events = db.Events;
+
+            events = events.Where(user => user.UserId == userId && user.Date.Date == date1.Date);
+            return events;
+        }
+
+        public IEnumerable<Event> GetEvents(string date)
+        {
+            DateTime date1 = Convert.ToDateTime(date);
+            IEnumerable<Event> events = db.Events;
+
+            events = events.Where(user => user.Date.Date == date1.Date);
+            return events;
+        }
+
         // PUT: api/Events/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutEvent(int id, Event @event)
