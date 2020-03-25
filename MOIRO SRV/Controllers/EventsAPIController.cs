@@ -54,13 +54,14 @@ namespace MOIRO_SRV.Controllers
             return events;
         }
 
-        public IEnumerable<Event> GetEvents(string date)
+        public IEnumerable<object> GetEvents(string date)
         {
             DateTime date1 = Convert.ToDateTime(date);
             IEnumerable<Event> events = db.Events;
+            IEnumerable<User> users = db.Users;
 
-            events = events.Where(user => user.Date.Date == date1.Date);
-            return events;
+            var eve = events.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.Status, p.Date, UserName = t.FullName, t.Room });
+            return eve;
         }
 
         // PUT: api/Events/5
