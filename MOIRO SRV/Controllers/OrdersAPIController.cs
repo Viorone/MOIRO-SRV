@@ -54,13 +54,14 @@ namespace MOIRO_SRV.Controllers
             return orders;
         }
 
-        public IEnumerable<Order> GetOrders(string date)
+        public IEnumerable<object> GetOrders(string date)
         {
             DateTime date1 = Convert.ToDateTime(date);
             IEnumerable<Order> orders = db.Orders;
+            IEnumerable<User> users = db.Users;
 
-            orders = orders.Where(user => user.Date.Date == date1.Date);
-            return orders;
+            var ord = orders.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.Status, p.Date, UserName = t.FullName });
+            return ord;
         }
 
         // PUT: api/Orders/5 
