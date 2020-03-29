@@ -12,6 +12,7 @@ namespace MOIRO_SRV.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<PublicChat> PublicChats { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
         //public DbSet<User> Users { get; set; }
     }

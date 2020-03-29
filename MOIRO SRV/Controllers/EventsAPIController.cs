@@ -60,7 +60,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var eve = events.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.Status, p.Date, UserName = t.FullName, t.Room });
+            var eve = events.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.StatusId, p.Date, UserName = t.FullName, t.Room });
             return eve;
         }
 

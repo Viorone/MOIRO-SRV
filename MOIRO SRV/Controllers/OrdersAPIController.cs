@@ -60,7 +60,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Order> orders = db.Orders;
             IEnumerable<User> users = db.Users;
 
-            var ord = orders.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.Status, p.Date, UserName = t.FullName, t.Room});
+            var ord = orders.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, UserName = t.FullName, t.Room});
             return ord;
         }
 

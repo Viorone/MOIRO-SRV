@@ -16,8 +16,9 @@ namespace MOIRO_SRV.Models
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public DateTime Date { get; set; }
-        public string Status { get; set; }
 
+        public int StatusId { get; set; }
+        public Status Status { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
 
