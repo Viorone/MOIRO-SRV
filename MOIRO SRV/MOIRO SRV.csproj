@@ -189,19 +189,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003292016242_InitialCreate.cs" />
-    <Compile Include="Migrations\202003292016242_InitialCreate.Designer.cs">
-      <DependentUpon>202003292016242_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003292027476_AddStatus.cs" />
-    <Compile Include="Migrations\202003292027476_AddStatus.designer.cs">
-      <DependentUpon>202003292027476_AddStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003292032375_AddStatus2.cs" />
-    <Compile Include="Migrations\202003292032375_AddStatus2.designer.cs">
-      <DependentUpon>202003292032375_AddStatus2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\PublicChat.cs" />
@@ -298,17 +285,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003292016242_InitialCreate.resx">
-      <DependentUpon>202003292016242_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003292027476_AddStatus.resx">
-      <DependentUpon>202003292027476_AddStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003292032375_AddStatus2.resx">
-      <DependentUpon>202003292032375_AddStatus2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

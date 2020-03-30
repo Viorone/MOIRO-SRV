@@ -14,6 +14,5 @@ namespace MOIRO_SRV.Models
         public DbSet<PublicChat> PublicChats { get; set; }
         public DbSet<Status> Statuses { get; set; }
 
-        //public DbSet<User> Users { get; set; }
     }
 }

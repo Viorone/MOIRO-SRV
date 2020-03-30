@@ -59,8 +59,12 @@ namespace MOIRO_SRV.Controllers
             DateTime date1 = Convert.ToDateTime(date);
             IEnumerable<Order> orders = db.Orders;
             IEnumerable<User> users = db.Users;
+            IEnumerable<Status> statuses = db.Statuses;
 
-            var ord = orders.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, UserName = t.FullName, t.Room});
+            var ord = orders.Where(user => user.Date.Date == date1.Date)
+                .Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, UserName = t.FullName, t.Room })
+                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, p.UserName, p.Room, StatusName = t.Name });
+
             return ord;
         }
 
