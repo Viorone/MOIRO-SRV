@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersAPIController.cs" />
     <Compile Include="Controllers\PublicChatsAPIController.cs" />
+    <Compile Include="Controllers\StatusAPIController.cs" />
     <Compile Include="Controllers\UsersAPIController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">

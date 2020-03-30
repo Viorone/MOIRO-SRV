@@ -45,13 +45,16 @@ namespace MOIRO_SRV.Controllers
             return orders;
         }
 
-        public IEnumerable<Order> GetOrders(int userId, string date)
+        public IEnumerable<object> GetOrders(int userId, string date)
         {
             DateTime date1 = Convert.ToDateTime(date);
             IEnumerable<Order> orders = db.Orders;
+            IEnumerable<Status> statuses = db.Statuses;
 
-            orders = orders.Where(user => user.UserId == userId && user.Date.Date == date1.Date);
-            return orders;
+            var ord = orders.Where(user => user.UserId == userId && user.Date.Date == date1.Date)
+                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, StatusName = t.Name });
+
+            return ord;
         }
 
         public IEnumerable<object> GetOrders(string date)
@@ -62,8 +65,8 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Status> statuses = db.Statuses;
 
             var ord = orders.Where(user => user.Date.Date == date1.Date)
-                .Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, UserName = t.FullName, t.Room })
-                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, p.UserName, p.Room, StatusName = t.Name });
+                .Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, UserName = t.FullName, t.Room, UserLogin = t.Login })
+                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, p.UserName, p.Room, StatusName = t.Name, p.UserLogin });
 
             return ord;
         }
