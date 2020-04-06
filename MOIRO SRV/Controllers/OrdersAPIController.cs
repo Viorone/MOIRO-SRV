@@ -52,7 +52,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Status> statuses = db.Statuses;
 
             var ord = orders.Where(user => user.UserId == userId && user.Date.Date == date1.Date)
-                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, StatusName = t.Name });
+                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.AdminComment, p.CompletionDate, p.Date, StatusName = t.Name });
 
             return ord;
         }
@@ -65,8 +65,8 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Status> statuses = db.Statuses;
 
             var ord = orders.Where(user => user.Date.Date == date1.Date)
-                .Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, UserName = t.FullName, t.Room, UserLogin = t.Login })
-                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, p.UserName, p.Room, StatusName = t.Name, p.UserLogin });
+                .Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.CompletionDate, p.Date, UserName = t.FullName, t.Room, UserLogin = t.Login })
+                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, p.CompletionDate, p.UserName, p.Room, StatusName = t.Name, p.UserLogin });
 
             return ord;
         }
