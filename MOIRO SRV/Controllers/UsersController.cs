@@ -17,7 +17,11 @@ namespace MOIRO_SRV.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            if (User.Identity.IsAuthenticated)
+            {
+                return View(db.Users.ToList());
+            }
+            return RedirectToAction("../Account/Login");
         }
 
         // GET: Users/Details/5
@@ -38,7 +42,11 @@ namespace MOIRO_SRV.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("../Account/Login");
         }
 
         // POST: Users/Create
@@ -61,16 +69,20 @@ namespace MOIRO_SRV.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            return RedirectToAction("../Account/Login");           
         }
 
         // POST: Users/Edit/5
@@ -92,16 +104,20 @@ namespace MOIRO_SRV.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            return RedirectToAction("../Account/Login");            
         }
 
         // POST: Users/Delete/5
