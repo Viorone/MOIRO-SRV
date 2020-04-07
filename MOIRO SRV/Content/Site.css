@@ -15,3 +15,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#exit{
+  position: absolute;
+  right: 10px;
+}

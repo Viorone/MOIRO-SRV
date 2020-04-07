@@ -35,7 +35,7 @@ namespace MOIRO_SRV.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                    ModelState.AddModelError("", "Неверный логин или пароль");
                 }
             }
 
