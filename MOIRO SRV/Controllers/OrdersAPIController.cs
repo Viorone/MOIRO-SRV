@@ -49,10 +49,27 @@ namespace MOIRO_SRV.Controllers
         {
             DateTime date1 = Convert.ToDateTime(date);
             IEnumerable<Order> orders = db.Orders;
+            IEnumerable<User> users = db.Users;
             IEnumerable<Status> statuses = db.Statuses;
 
-            var ord = orders.Where(user => user.UserId == userId && user.Date.Date == date1.Date)
-                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.AdminComment, p.CompletionDate, p.Date, StatusName = t.Name });
+            var ord = from first in orders.Where(user => user.UserId == userId && user.Date.Date == date1.Date)
+                      join last in users on first.AdminId equals last.Id into temp
+                      from z in temp.DefaultIfEmpty()
+                      join last in statuses on first.StatusId equals last.Id
+                      select new
+                      {
+                          first.Id,
+                          first.AdminComment,
+                          first.AdminId,
+                          first.CompletionDate,
+                          first.Date,
+                          first.Description,
+                          first.Problem,
+                          first.StatusId,
+                          first.UserId,
+                          StatusName = last.Name,
+                          AdminName = first.AdminId == null ? null : z.FullName
+                      };
 
             return ord;
         }
@@ -64,10 +81,29 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<User> users = db.Users;
             IEnumerable<Status> statuses = db.Statuses;
 
-            var ord = orders.Where(user => user.Date.Date == date1.Date)
-                .Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.CompletionDate, p.AdminComment, p.Date, UserName = t.FullName, t.Room, UserLogin = t.Login })
-                .Join(statuses, p => p.StatusId, t => t.Id, (p, t) => new { p.Description, p.Problem, p.Id, p.UserId, p.StatusId, p.Date, p.CompletionDate, p.UserName, p.AdminComment, p.Room, StatusName = t.Name, p.UserLogin });
-
+            var ord = from first in orders.Where(user => user.Date.Date == date1.Date)
+                      join second in users on first.UserId equals second.Id 
+                      join third in statuses on first.StatusId equals third.Id
+                      join fourth in users on first.AdminId equals fourth.Id into temp
+                      from fourth in temp.DefaultIfEmpty()
+                      select new
+                      {
+                          first.Id,
+                          first.AdminComment,
+                          first.AdminId,
+                          first.CompletionDate,
+                          first.Date,
+                          first.Description,
+                          first.Problem,
+                          first.StatusId,
+                          first.UserId,
+                          UserName = second.FullName,
+                          second.Room,
+                          StatusName = third.Name,
+                          UserLogin = second.Login,
+                          AdminName = first.AdminId == null ? null : fourth.FullName
+                      };
+     
             return ord;
         }
 

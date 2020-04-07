@@ -203,6 +203,10 @@
     <Compile Include="Migrations\202004070741213_Login.designer.cs">
       <DependentUpon>202004070741213_Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004071615114_AddAdminId.cs" />
+    <Compile Include="Migrations\202004071615114_AddAdminId.designer.cs">
+      <DependentUpon>202004071615114_AddAdminId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Order.cs" />
@@ -312,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004070741213_Login.resx">
       <DependentUpon>202004070741213_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004071615114_AddAdminId.resx">
+      <DependentUpon>202004071615114_AddAdminId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

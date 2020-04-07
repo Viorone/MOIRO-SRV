@@ -15,11 +15,11 @@ namespace MOIRO_SRV.Models
         public DateTime Date { get; set; }
         public string AdminComment { get; set; }
         public DateTime CompletionDate { get; set; }
+        public int? AdminId { get; set; }
 
         public int StatusId { get; set; }
         public Status Status { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-
     }
 }
