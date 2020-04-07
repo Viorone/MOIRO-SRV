@@ -10,9 +10,15 @@ namespace MOIRO_SRV.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            if (User.Identity.IsAuthenticated)
+            {
+                //var result = "Ваш логин: " + User.Identity.Name;
+                ViewBag.Title = "Home Page";
+                return View();
+            }
+            
 
-            return View();
+            return RedirectToAction("../Account/Login");
         }
     }
 }
