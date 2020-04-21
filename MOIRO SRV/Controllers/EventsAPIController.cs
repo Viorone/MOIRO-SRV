@@ -50,7 +50,7 @@ namespace MOIRO_SRV.Controllers
             DateTime date1 = Convert.ToDateTime(date);
             IEnumerable<Event> events = db.Events;
 
-            events = events.Where(user => user.UserId == userId && user.Date.Date == date1.Date);
+            events = events.Where(user => user.UserId == userId && user.DateStart.Date == date1.Date);
             return events;
         }
 
@@ -60,7 +60,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var eve = events.Where(user => user.Date.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.StatusId, p.Date, UserName = t.FullName, t.Room });
+            var eve = events.Where(user => user.DateStart.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.StatusId, p.Date, UserName = t.FullName, t.Room });
             return eve;
         }
 
