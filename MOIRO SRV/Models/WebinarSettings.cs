@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MOIRO_SRV.Models
 {
-    public class SettingsWebinar
+    public class WebinarSettings
     {
     }
 }

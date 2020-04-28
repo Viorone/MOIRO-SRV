@@ -198,10 +198,10 @@
     <Compile Include="Models\PublicChat.cs" />
     <Compile Include="Models\ServerContext.cs" />
     <Compile Include="Models\ServerUser.cs" />
-    <Compile Include="Models\SettingsWebinar.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Webinar.cs" />
+    <Compile Include="Models\WebinarSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
