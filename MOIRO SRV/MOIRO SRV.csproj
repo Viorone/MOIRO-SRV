@@ -188,9 +188,19 @@
     <Compile Include="Controllers\StatusAPIController.cs" />
     <Compile Include="Controllers\UsersAPIController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WebinarsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004081604351_InitialCreate.cs" />
+    <Compile Include="Migrations\202004081604351_InitialCreate.designer.cs">
+      <DependentUpon>202004081604351_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004281756451_Webinars.cs" />
+    <Compile Include="Migrations\202004281756451_Webinars.designer.cs">
+      <DependentUpon>202004281756451_Webinars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Order.cs" />
@@ -293,6 +303,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202004081604351_InitialCreate.resx">
+      <DependentUpon>202004081604351_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004281756451_Webinars.resx">
+      <DependentUpon>202004281756451_Webinars.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

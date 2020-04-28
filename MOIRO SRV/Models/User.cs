@@ -22,6 +22,6 @@ namespace MOIRO_SRV.Models
         public List<Order> Orders { get; set; }
         public List<Event> Events { get; set; }
         public List<PublicChat> PublicChats{ get; set; }
-
+        public List<Webinar> Webinars { get; set; }
     }
 }
