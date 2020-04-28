@@ -188,7 +188,7 @@
     <Compile Include="Controllers\StatusAPIController.cs" />
     <Compile Include="Controllers\UsersAPIController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\WebinarsController.cs" />
+    <Compile Include="Controllers\WebinarsAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -13,7 +13,7 @@ using MOIRO_SRV.Models;
 
 namespace MOIRO_SRV.Controllers
 {
-    public class WebinarsController : ApiController
+    public class WebinarsAPIController : ApiController
     {
         private ServerContext db = new ServerContext();
 
