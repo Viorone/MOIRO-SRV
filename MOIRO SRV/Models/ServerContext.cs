@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace MOIRO_SRV.Models
 {
@@ -19,8 +15,8 @@ namespace MOIRO_SRV.Models
         public DbSet<PublicChat> PublicChats { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<ServerUser> ServerUsers { get; set; }
-
-       
-
+        public DbSet<Webinar> Webinars { get; set; }
+        public DbSet<WebinarSettings> WebinarsSettings { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
     }
 }
