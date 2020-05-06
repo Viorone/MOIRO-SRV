@@ -36,13 +36,56 @@ namespace MOIRO_SRV.Controllers
             return Ok(order);
         }
 
-        // GET orders by idUser (Personal user orders) and request for a specific user by Admin
-        public IQueryable<Order> GetOrders(int userId, int count)
+        public IEnumerable<object> GetOrders(int statusId, string dateStart, string dateEnd)
+        {
+            DateTime tmpDateStart = Convert.ToDateTime(dateStart);
+            DateTime tmpDateEnd = Convert.ToDateTime(dateEnd);         
+            IEnumerable<Order> orders = db.Orders;
+            IEnumerable<User> users = db.Users;
+            IEnumerable<Status> statuses = db.Statuses;
+
+            var ord = from first in orders.Where(a => a.StatusId == statusId && a.Date.Date >= tmpDateStart && a.Date.Date <= tmpDateEnd)
+                      join second in users on first.UserId equals second.Id
+                      join third in statuses on first.StatusId equals third.Id
+                      join fourth in users on first.AdminId equals fourth.Id into temp
+                      from fourth in temp.DefaultIfEmpty()
+                      select new
+                      {
+                          first.Id,
+                          first.AdminComment,
+                          first.AdminId,
+                          first.CompletionDate,
+                          first.Date,
+                          first.Description,
+                          first.Problem,
+                          first.StatusId,
+                          first.UserId,
+                          UserName = second.FullName,
+                          second.Room,
+                          StatusName = third.Name,
+                          UserLogin = second.Login,
+                          AdminName = first.AdminId == null ? null : fourth.FullName
+                      };
+
+            return ord;
+        }
+
+        public int GetOrdersCount(int statusId)
         {
             IQueryable<Order> orders = db.Orders;
 
-            orders = orders.Where(user => user.UserId == userId).OrderByDescending(user => user.Date).Take(count);
-            return orders;
+            var status = orders.Where(a => a.StatusId == statusId).Count();
+
+            return status;
+        }
+
+        public int GetOrdersCount(int statusId, int userId)
+        {
+            IQueryable<Order> orders = db.Orders;
+
+            var status = orders.Where(a => a.StatusId == statusId && a.UserId == userId).Count();
+
+            return status;
         }
 
         public IEnumerable<object> GetOrders(int userId, string date)
@@ -53,6 +96,34 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Status> statuses = db.Statuses;
 
             var ord = from first in orders.Where(user => user.UserId == userId && user.Date.Date == date1.Date)
+                      join last in users on first.AdminId equals last.Id into temp
+                      from z in temp.DefaultIfEmpty()
+                      join last in statuses on first.StatusId equals last.Id
+                      select new
+                      {
+                          first.Id,
+                          first.AdminComment,
+                          first.AdminId,
+                          first.CompletionDate,
+                          first.Date,
+                          first.Description,
+                          first.Problem,
+                          first.StatusId,
+                          first.UserId,
+                          StatusName = last.Name,
+                          AdminName = first.AdminId == null ? null : z.FullName
+                      };
+
+            return ord;
+        }
+
+        public IEnumerable<object> GetOrders(int userId, int statusId)
+        {            
+            IEnumerable<Order> orders = db.Orders;
+            IEnumerable<User> users = db.Users;
+            IEnumerable<Status> statuses = db.Statuses;
+
+            var ord = from first in orders.Where(user => user.UserId == userId && user.StatusId == statusId)
                       join last in users on first.AdminId equals last.Id into temp
                       from z in temp.DefaultIfEmpty()
                       join last in statuses on first.StatusId equals last.Id
