@@ -76,6 +76,14 @@ namespace MOIRO_SRV.Controllers
 
             var status = orders.Where(a => a.StatusId == statusId).Count();
 
+            return status;
+        }
+
+        public int GetOrdersCount(int statusId, int userId)
+        {
+            IQueryable<Order> orders = db.Orders;
+
+            var status = orders.Where(a => a.StatusId == statusId && a.UserId == userId).Count();
 
             return status;
         }
@@ -88,6 +96,34 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Status> statuses = db.Statuses;
 
             var ord = from first in orders.Where(user => user.UserId == userId && user.Date.Date == date1.Date)
+                      join last in users on first.AdminId equals last.Id into temp
+                      from z in temp.DefaultIfEmpty()
+                      join last in statuses on first.StatusId equals last.Id
+                      select new
+                      {
+                          first.Id,
+                          first.AdminComment,
+                          first.AdminId,
+                          first.CompletionDate,
+                          first.Date,
+                          first.Description,
+                          first.Problem,
+                          first.StatusId,
+                          first.UserId,
+                          StatusName = last.Name,
+                          AdminName = first.AdminId == null ? null : z.FullName
+                      };
+
+            return ord;
+        }
+
+        public IEnumerable<object> GetOrders(int userId, int statusId)
+        {            
+            IEnumerable<Order> orders = db.Orders;
+            IEnumerable<User> users = db.Users;
+            IEnumerable<Status> statuses = db.Statuses;
+
+            var ord = from first in orders.Where(user => user.UserId == userId && user.StatusId == statusId)
                       join last in users on first.AdminId equals last.Id into temp
                       from z in temp.DefaultIfEmpty()
                       join last in statuses on first.StatusId equals last.Id
