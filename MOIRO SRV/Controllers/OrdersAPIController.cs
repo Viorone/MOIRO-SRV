@@ -79,11 +79,11 @@ namespace MOIRO_SRV.Controllers
             return status;
         }
 
-        public int GetOrdersCount(int statusId, int userId)
+        public int GetOrdersCount(int stId, int usId)
         {
             IQueryable<Order> orders = db.Orders;
 
-            var status = orders.Where(a => a.StatusId == statusId && a.UserId == userId).Count();
+            var status = orders.Where(a => a.StatusId == stId && a.UserId == usId).Count();
 
             return status;
         }
