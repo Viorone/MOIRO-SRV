@@ -45,14 +45,14 @@ namespace MOIRO_SRV.Controllers
             return Ok(@event);
         }
 
-        public IEnumerable<Event> GetEvents(int userId, string date)
-        {
-            DateTime date1 = Convert.ToDateTime(date);
-            IEnumerable<Event> events = db.Events;
+        //public IEnumerable<Event> GetEvents(int userId, string date)
+        //{
+        //    DateTime date1 = Convert.ToDateTime(date);
+        //    IEnumerable<Event> events = db.Events;
 
-            events = events.Where(user => user.UserId == userId && user.DateStart.Date == date1.Date);
-            return events;
-        }
+        //    events = events.Where(user => user.UserId == userId && user.DateStart.Date == date1.Date);
+        //    return events;
+        //}
 
         public IEnumerable<object> GetEvents(string date)
         {
@@ -60,7 +60,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var eve = events.Where(user => user.DateStart.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.StatusId, p.Date, UserName = t.FullName, t.Room });
+            var eve = events.Where(user => user.DateStart.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.UserId, p.IsCanceled, p.Date, UserName = t.FullName, t.Room });
             return eve;
         }
 
