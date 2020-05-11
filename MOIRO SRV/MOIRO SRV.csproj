@@ -204,6 +204,10 @@
     <Compile Include="Migrations\202005111029182_ChangeEvent.designer.cs">
       <DependentUpon>202005111029182_ChangeEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005111042388_changeEvents.cs" />
+    <Compile Include="Migrations\202005111042388_changeEvents.designer.cs">
+      <DependentUpon>202005111042388_changeEvents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
     <Compile Include="Models\Event.cs" />
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005111029182_ChangeEvent.resx">
       <DependentUpon>202005111029182_ChangeEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005111042388_changeEvents.resx">
+      <DependentUpon>202005111042388_changeEvents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
