@@ -45,13 +45,30 @@ namespace MOIRO_SRV.Controllers
             return Ok(@event);
         }
 
-        public IEnumerable<Event> GetEvents(int userId, string date)
+        public IEnumerable<object> GetEvents(string dateStart, string dateEnd)
         {
-            DateTime date1 = Convert.ToDateTime(date);
+            DateTime tmpDateStart = Convert.ToDateTime(dateStart);
+            DateTime tmpDateEnd = Convert.ToDateTime(dateEnd);
             IEnumerable<Event> events = db.Events;
+            IEnumerable<User> users = db.Users;
 
-            events = events.Where(user => user.UserId == userId && user.DateStart.Date == date1.Date);
-            return events;
+            var eve = from first in events.Where(a => a.Date.Date >= tmpDateStart && a.Date.Date <= tmpDateEnd)
+                      join second in users on first.UserId equals second.Id                     
+                      select new
+                      {
+                          first.Id,
+                          first.Date,
+                          first.Description,
+                          first.NameEvent,
+                          first.DateStart,
+                          first.DateEnd,
+                          first.UserId,
+                          first.IsCanceled,
+                          first.Place,
+                          UserName = second.FullName,
+                          second.Room
+                      };
+            return eve;
         }
 
         public IEnumerable<object> GetEvents(string date)
@@ -60,7 +77,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var eve = events.Where(user => user.DateStart.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.StatusId, p.Date, UserName = t.FullName, t.Room });
+            var eve = events.Where(user => user.DateStart.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Id, p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.UserId, p.IsCanceled, p.Date, UserName = t.FullName, t.Room });
             return eve;
         }
 
