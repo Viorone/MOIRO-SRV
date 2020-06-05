@@ -45,14 +45,31 @@ namespace MOIRO_SRV.Controllers
             return Ok(@event);
         }
 
-        //public IEnumerable<Event> GetEvents(int userId, string date)
-        //{
-        //    DateTime date1 = Convert.ToDateTime(date);
-        //    IEnumerable<Event> events = db.Events;
+        public IEnumerable<object> GetEvents(string dateStart, string dateEnd)
+        {
+            DateTime tmpDateStart = Convert.ToDateTime(dateStart);
+            DateTime tmpDateEnd = Convert.ToDateTime(dateEnd);
+            IEnumerable<Event> events = db.Events;
+            IEnumerable<User> users = db.Users;
 
-        //    events = events.Where(user => user.UserId == userId && user.DateStart.Date == date1.Date);
-        //    return events;
-        //}
+            var ord = from first in events.Where(a => a.Date.Date >= tmpDateStart && a.Date.Date <= tmpDateEnd)
+                      join second in users on first.UserId equals second.Id                     
+                      select new
+                      {
+                          first.Id,
+                          first.Date,
+                          first.Description,
+                          first.NameEvent,
+                          first.DateStart,
+                          first.DateEnd,
+                          first.UserId,
+                          first.IsCanceled,
+                          first.Place,
+                          UserName = second.FullName,
+                          second.Room
+                      };
+            return ord;
+        }
 
         public IEnumerable<object> GetEvents(string date)
         {
