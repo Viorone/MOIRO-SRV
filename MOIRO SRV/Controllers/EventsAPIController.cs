@@ -52,7 +52,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var ord = from first in events.Where(a => a.Date.Date >= tmpDateStart && a.Date.Date <= tmpDateEnd)
+            var eve = from first in events.Where(a => a.Date.Date >= tmpDateStart && a.Date.Date <= tmpDateEnd)
                       join second in users on first.UserId equals second.Id                     
                       select new
                       {
@@ -68,7 +68,7 @@ namespace MOIRO_SRV.Controllers
                           UserName = second.FullName,
                           second.Room
                       };
-            return ord;
+            return eve;
         }
 
         public IEnumerable<object> GetEvents(string date)
