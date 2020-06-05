@@ -52,7 +52,7 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var eve = from first in events.Where(a => a.Date.Date >= tmpDateStart && a.Date.Date <= tmpDateEnd)
+            var eve = from first in events.Where(a => a.DateStart.Date >= tmpDateStart && a.DateEnd.Date <= tmpDateEnd)
                       join second in users on first.UserId equals second.Id                     
                       select new
                       {
