@@ -19,6 +19,7 @@ namespace MOIRO_SRV.Models
         public bool IsCanceled { get; set; }
 
         public int UserId { get; set; }
+        public int? AdminId { get; set; }
         public User User { get; set; }
 
     }
