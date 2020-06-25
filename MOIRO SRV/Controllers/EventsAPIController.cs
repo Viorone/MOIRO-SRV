@@ -52,8 +52,10 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var eve = from first in events.Where(a => a.Date.Date >= tmpDateStart && a.Date.Date <= tmpDateEnd)
-                      join second in users on first.UserId equals second.Id                     
+            var eve = from first in events.Where(a => a.DateStart.Date >= tmpDateStart && a.DateEnd.Date <= tmpDateEnd)
+                      join second in users on first.UserId equals second.Id
+                      join third in users on first.AdminId equals third.Id into temp
+                      from third in temp.DefaultIfEmpty()
                       select new
                       {
                           first.Id,
@@ -65,9 +67,11 @@ namespace MOIRO_SRV.Controllers
                           first.UserId,
                           first.IsCanceled,
                           first.Place,
+                          second.Room,
                           UserName = second.FullName,
-                          second.Room
+                          AdminName = first.AdminId == null ? null : third.FullName                        
                       };
+
             return eve;
         }
 
@@ -77,7 +81,26 @@ namespace MOIRO_SRV.Controllers
             IEnumerable<Event> events = db.Events;
             IEnumerable<User> users = db.Users;
 
-            var eve = events.Where(user => user.DateStart.Date == date1.Date).Join(users, p => p.UserId, t => t.Id, (p, t) => new { p.Id, p.Description, p.DateStart, p.DateEnd, p.NameEvent, p.Place, p.UserId, p.IsCanceled, p.Date, UserName = t.FullName, t.Room });
+            var eve = from first in events.Where(user => user.DateStart.Date == date1.Date)
+                join second in users on first.UserId equals second.Id
+                      join third in users on first.AdminId equals third.Id into temp
+                      from third in temp.DefaultIfEmpty()
+                      select new
+                      {
+                          first.Id,
+                          first.Date,
+                          first.Description,
+                          first.NameEvent,
+                          first.DateStart,
+                          first.DateEnd,
+                          first.UserId,
+                          first.IsCanceled,
+                          first.Place,
+                          second.Room,
+                          UserName = second.FullName,
+                          AdminName = first.AdminId == null ? null : third.FullName                        
+                      };
+
             return eve;
         }
 

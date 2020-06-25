@@ -22,6 +22,14 @@ namespace MOIRO_SRV.Controllers
         {
             return db.Users;
         }
+
+        public IQueryable<User> GetUsers(bool admin)
+        {
+            IQueryable<User> users;
+            users = db.Users.Where(a => a.Admin == true);
+            return users;
+        }
+
         //GET: api/Users1/5
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> GetUser(int id)
